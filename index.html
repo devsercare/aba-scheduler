@@ -244,7 +244,7 @@ const SUPABASE_KEY =
 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxbWRjZHVsbnBzY2prZGlhb2RxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1MTg5NTMsImV4cCI6MjA5NjA5NDk1M30.8fln9mkJhDC82Uxi6CeE4WNYapEDLueNDf7Yp5FSs_k";
 
 const supabaseClient =
-  supabase.createClient(
+  window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
   );
