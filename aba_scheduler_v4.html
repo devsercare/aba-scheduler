@@ -1,0 +1,1161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Helvetica Neue'; color: #000000; color: rgba(0, 0, 0, 0.85); -webkit-text-stroke: rgba(0, 0, 0, 0.85)}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Helvetica Neue'; color: #000000; color: rgba(0, 0, 0, 0.85); -webkit-text-stroke: rgba(0, 0, 0, 0.85); min-height: 14.0px}
+    span.s1 {font-kerning: none}
+    span.s2 {font: 12.0px 'Hiragino Sans'; font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!doctype html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;meta charset="utf-8"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;title&gt;ABA Scheduler V4&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1">&lt;script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"&gt;&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;style&gt;</span></p>
+<p class="p1"><span class="s1">body{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>font-family:Arial, sans-serif;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>margin:0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>background:#f5f6f8;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">header{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>background:white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>padding:12px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>border-bottom:1px solid #ccc;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>position:sticky;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>top:0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>z-index:10;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">button,input,select{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>padding:7px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>margin:3px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>border-radius:6px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>border:1px solid #aaa;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">button.primary{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>background:#2f6fed;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>color:white;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">.layout{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>display:grid;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>grid-template-columns:300px 1fr;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>gap:12px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>padding:12px;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">.box{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>background:white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>border:1px solid #ccc;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>border-radius:10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>padding:10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>margin-bottom:10px;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">.days button.active{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>background:#2f6fed;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>color:white;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">.board{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>background:white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>border:1px solid #ccc;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>border-radius:10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>padding:10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>overflow:auto;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">.row{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>display:grid;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>grid-template-columns:150px repeat(3,1fr);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>gap:8px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>margin-bottom:8px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>min-width:1100px;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">.staffCell{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>border:1px solid #ddd;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>border-radius:8px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>padding:8px;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">.staffRowEven .staffCell,</span></p>
+<p class="p1"><span class="s1">.staffRowEven .slot{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>background:white;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">.staffRowOdd .staffCell,</span></p>
+<p class="p1"><span class="s1">.staffRowOdd .slot{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>background:#fff0f5;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">.slot{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>border:1px dashed #aaa;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>border-radius:8px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>min-height:115px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>padding:6px;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">.slot.dragover{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>outline:3px solid #93c5fd;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">.card{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>background:white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>border:1px solid #9bb7ff;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>border-left:6px solid #2f6fed;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>border-radius:8px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>padding:6px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>margin:5px 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>cursor:grab;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">.card.warning{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>background:#fff3cd;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>border-color:#d39e00;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>border-left-color:#d39e00;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">.card.searchHit{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>outline:3px solid #ffd54f;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">.small{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>font-size:12px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>color:#666;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">.pool{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>min-height:120px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>border:1px dashed #bbb;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>border-radius:8px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>padding:8px;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">.stat{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>display:flex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>justify-content:space-between;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>border-bottom:1px solid #eee;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>padding:5px 0;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">.modal{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>display:none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>position:fixed;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>inset:0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>background:#0006;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>align-items:center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>justify-content:center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>z-index:50;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">.modalPanel{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>background:white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>padding:16px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>border-radius:12px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>width:460px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>max-width:95vw;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">.modalPanel label{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>display:block;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>margin-top:8px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>font-size:12px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>color:#666;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">.modalPanel input,</span></p>
+<p class="p1"><span class="s1">.modalPanel select{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>width:100%;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">.warningText{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>color:#92400e;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>font-size:12px;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">&lt;/style&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;header&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;b&gt;Scheduler V4&lt;/b&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div class="small"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>Live Supabase version · Authorized hours · drag/drop · unscheduled pool · warning-only validation</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;input id="searchBox" placeholder="Search initials..." oninput="renderAll()"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;button class="primary" onclick="openSessionModal()"&gt;+ Add Appointment&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;button onclick="loadData()"&gt;Refresh&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/header&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;div class="layout"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;aside&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="box"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;b&gt;Agency Totals&lt;/b&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div id="totals"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="box"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;b&gt;Search Results&lt;/b&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div id="searchResults" class="small"&gt;Search client initials above.&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="box"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;b&gt;Unscheduled Pool&lt;/b&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="small"&gt;Drag appointments here to unschedule them.&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div id="pool" class="pool" ondragover="event.preventDefault()" ondrop="dropToPool(event)"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="box"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;b&gt;Authorization Warnings&lt;/b&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div id="authWarnings"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/aside&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;main&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="box days" id="dayButtons"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="board" id="board"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/main&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;div class="modal" id="sessionModal"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div class="modalPanel"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;h3 id="modalTitle"&gt;Add Appointment&lt;/h3&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;input type="hidden" id="sessionId"&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;label&gt;Client&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;select id="sessionClient"&gt;&lt;/select&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;label&gt;Staff&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;select id="sessionStaff"&gt;&lt;/select&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;label&gt;Day&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;select id="sessionDay"&gt;&lt;/select&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;label&gt;Category&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;select id="sessionSlot"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;option&gt;AM&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;option&gt;Mid&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;option&gt;PM&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/select&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;label&gt;Start Time&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;input id="sessionStart" type="time" value="08:30"&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;label&gt;End Time&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;input id="sessionEnd" type="time" value="11:30"&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;label&gt;Service Type&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;input id="sessionService" value="ABA Therapy"&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;label&gt;Status&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;select id="sessionStatus"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;option value="scheduled"&gt;scheduled&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;option value="unscheduled"&gt;unscheduled&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/select&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div id="modalWarnings" class="warningText"&gt;&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;br&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;button onclick="deleteSession()"&gt;Delete&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;button onclick="duplicateSession()"&gt;Duplicate&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;button onclick="closeModal()"&gt;Cancel&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;button class="primary" onclick="saveSession()"&gt;Save&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/div&gt;&lt;script&gt;</span></p>
+<p class="p1"><span class="s1">/* =========================</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>SUPABASE CONNECTION</span></p>
+<p class="p1"><span class="s1">========================= */</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">const SUPABASE_URL =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>"https://kqmdcdulnpscjkdiaodq.supabase.co";</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">const SUPABASE_KEY =</span></p>
+<p class="p1"><span class="s1">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxbWRjZHVsbnBzY2prZGlhb2RxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1MTg5NTMsImV4cCI6MjA5NjA5NDk1M30.8fln9mkJhDC82Uxi6CeE4WNYapEDLueNDf7Yp5FSs_k";</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">const supabaseClient =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>supabase.createClient(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>SUPABASE_URL,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>SUPABASE_KEY</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">/* =========================</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>APP STATE</span></p>
+<p class="p1"><span class="s1">========================= */</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">let clients = [];</span></p>
+<p class="p1"><span class="s1">let staff = [];</span></p>
+<p class="p1"><span class="s1">let sessions = [];</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">let activeDay = "Monday";</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">const DAYS = [</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>"Monday",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>"Tuesday",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>"Wednesday",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>"Thursday",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>"Friday"</span></p>
+<p class="p1"><span class="s1">];</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">const SLOTS = [</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>"AM",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>"Mid",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>"PM"</span></p>
+<p class="p1"><span class="s1">];</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">/* =========================</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>INITIAL LOAD</span></p>
+<p class="p1"><span class="s1">========================= */</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">window.addEventListener(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>"load",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>async () =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>await loadData();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1">);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">/* =========================</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>LOAD DATA</span></p>
+<p class="p1"><span class="s1">========================= */</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">async function loadData(){</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const clientResult =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>await supabaseClient</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.from("clients")</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.select("*")</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.order("initials");</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>clients = clientResult.data || [];</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const staffResult =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>await supabaseClient</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.from("staff")</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.select("*")</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.order("name");</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>staff = staffResult.data || [];</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const sessionResult =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>await supabaseClient</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.from("sessions")</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.select("*");</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>sessions = sessionResult.data || [];</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>renderAll();</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">/* =========================</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>HELPERS</span></p>
+<p class="p1"><span class="s1">========================= */</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function getClient(id){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>return clients.find(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>x =&gt; x.id === id</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>);</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function getStaff(id){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>return staff.find(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>x =&gt; x.id === id</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>);</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function timeToMinutes(time){</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(!time) return 0;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const parts =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>time.split(":");</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>return (</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>Number(parts[0]) * 60 +</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>Number(parts[1])</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>);</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function durationHours(session){</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>return (</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>timeToMinutes(session.end_time) -</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>timeToMinutes(session.start_time)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>) / 60;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function clientHours(clientId){</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>return sessions</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.filter(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>s =&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>s.client_id === clientId &amp;&amp;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>s.status === "scheduled"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.reduce(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>(sum,s) =&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>sum + durationHours(s),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>0</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>);</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function staffHours(staffId){</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>return sessions</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.filter(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>s =&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>s.staff_id === staffId &amp;&amp;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>s.status === "scheduled"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.reduce(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>(sum,s) =&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>sum + durationHours(s),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>0</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>);</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function totalHours(){</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>return sessions</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.filter(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>s =&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>s.status === "scheduled"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.reduce(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>(sum,s) =&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>sum + durationHours(s),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>0</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>);</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">/* =========================</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>OVERLAP CHECKS</span></p>
+<p class="p1"><span class="s1">========================= */</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function overlaps(a,b){</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>a.id === b.id ||</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>a.day !== b.day ||</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>a.staff_id !== b.staff_id</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>return false;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>return (</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>timeToMinutes(a.start_time) &lt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>timeToMinutes(b.end_time)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&amp;&amp;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>timeToMinutes(b.start_time) &lt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>timeToMinutes(a.end_time)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>);</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function hasOverlap(session){</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>return sessions.some(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>other =&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>overlaps(session,other)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>);</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">/* =========================</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>RENDER</span></p>
+<p class="p1"><span class="s1">========================= */</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function renderAll(){</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>renderDayButtons();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>renderTotals();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>renderBoard();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>renderPool();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>renderWarnings();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>renderSearch();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>populateDropdowns();</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function renderDayButtons(){</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const box =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>document.getElementById(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>"dayButtons"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>box.innerHTML = "";</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>DAYS.forEach(day=&gt;{</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const button =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>document.createElement(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>"button"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>button.textContent = day;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if(day === activeDay){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>button.classList.add(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>"active"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>button.onclick = ()=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>activeDay = day;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>renderBoard();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>box.appendChild(button);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function renderTotals(){</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>"totals"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>).innerHTML = `</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="stat"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;span&gt;Clients&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;b&gt;${clients.length}&lt;/b&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="stat"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;span&gt;Staff&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;b&gt;${staff.length}&lt;/b&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="stat"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;span&gt;Hours Scheduled&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;b&gt;${totalHours().toFixed(2)}&lt;/b&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>`;</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">&lt;/script&gt;&lt;script&gt;</span></p>
+<p class="p1"><span class="s1">/* =========================</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>DROPDOWNS</span></p>
+<p class="p1"><span class="s1">========================= */</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function populateDropdowns(){</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>"sessionClient"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>).innerHTML =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>clients.map(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>c =&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>`&lt;option value="${c.id}"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>${c.initials}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/option&gt;`</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>).join("");</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>"sessionStaff"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>).innerHTML =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>`&lt;option value=""&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>Unassigned</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/option&gt;` +</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>staff.map(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>s =&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>`&lt;option value="${s.id}"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>${s.name}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/option&gt;`</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>).join("");</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>"sessionDay"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>).innerHTML =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>DAYS.map(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>d =&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>`&lt;option&gt;${d}&lt;/option&gt;`</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>).join("");</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">/* =========================</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>BOARD</span></p>
+<p class="p1"><span class="s1">========================= */</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function renderBoard(){</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const board =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>document.getElementById(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>"board"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>board.innerHTML = "";</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const header =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>document.createElement(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>"div"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>header.className = "row";</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>header.innerHTML = `</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="staffCell"&gt;&lt;b&gt;AM&lt;/b&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="staffCell"&gt;&lt;b&gt;Mid&lt;/b&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="staffCell"&gt;&lt;b&gt;PM&lt;/b&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>`;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>board.appendChild(header);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>staff.forEach(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>(staffMember,index)=&gt;{</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const row =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.createElement(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>"div"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>row.className =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>"row " +</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>index % 2 === 0</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>? "staffRowEven"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>: "staffRowOdd"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const hours =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>staffHours(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>staffMember.id</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const left =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.createElement(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>"div"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>left.className =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>"staffCell";</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>left.innerHTML = `</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;b</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>style="cursor:pointer"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>onclick="renameStaff('${staffMember.id}')"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>${staffMember.name}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/b&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="small"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>${hours.toFixed(2)} hrs</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>`;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>row.appendChild(left);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>SLOTS.forEach(slot=&gt;{</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const cell =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>document.createElement(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>"div"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>cell.className =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>"slot";</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>cell.ondragover =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>e=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>e.preventDefault();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>cell.classList.add(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>"dragover"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>cell.ondragleave =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>()=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>cell.classList.remove(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>"dragover"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>cell.ondrop =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>e=&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>dropSession(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>e,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>staffMember.id,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>activeDay,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>slot</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const slotSessions =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>sessions.filter(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>s =&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>s.staff_id ===</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>staffMember.id</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&amp;&amp;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>s.day === activeDay</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&amp;&amp;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>s.slot === slot</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&amp;&amp;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>s.status ===</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>"scheduled"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>slotSessions.forEach(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>s=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>cell.appendChild(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>sessionCard(s)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>row.appendChild(cell);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>board.appendChild(row);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">/* =========================</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>APPOINTMENT CARDS</span></p>
+<p class="p1"><span class="s1">========================= */</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function sessionCard(session){</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const card =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>document.createElement(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>"div"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>card.className =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>"card";</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>hasOverlap(session)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>card.classList.add(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>"warning"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const client =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>getClient(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>session.client_id</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>card.draggable = true;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>card.ondragstart =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>e=&gt;{</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>e.dataTransfer.setData(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>"session",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>session.id</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>card.ondblclick =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>()=&gt;openSessionModal(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>session.id</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>card.innerHTML = `</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;b&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>${</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>client</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>? client.initials</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>: "Unknown"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/b&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="small"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>${session.start_time}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>-</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>${session.end_time}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>${</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>hasOverlap(session)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>? `</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="warningText"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>Overlap Warning</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>`</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>: ""</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>`;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>return card;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">/* =========================</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>DRAG DROP</span></p>
+<p class="p1"><span class="s1">========================= */</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">async function dropSession(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>event,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>staffId,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>day,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>slot</span></p>
+<p class="p1"><span class="s1">){</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>event.preventDefault();</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const sessionId =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>event.dataTransfer.getData(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>"session"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const session =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>sessions.find(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>s =&gt; s.id === sessionId</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(!session) return;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>session.staff_id =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>staffId;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>session.day =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>day;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>session.slot =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>slot;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>session.status =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>"scheduled";</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>await supabaseClient</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.from("sessions")</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.update({</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>staff_id:</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>session.staff_id,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>day:</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>session.day,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>slot:</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>session.slot,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>status:</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>session.status</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>})</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.eq(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>"id",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>session.id</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>renderAll();</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">async function dropToPool(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>event</span></p>
+<p class="p1"><span class="s1">){</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>event.preventDefault();</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const sessionId =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>event.dataTransfer.getData(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>"session"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const session =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>sessions.find(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>s =&gt; s.id === sessionId</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(!session) return;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>session.status =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>"unscheduled";</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>await supabaseClient</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.from("sessions")</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.update({</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>status:</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>"unscheduled"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>})</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.eq(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>"id",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>session.id</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>renderAll();</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">/* =========================</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>UNSCHEDULED POOL</span></p>
+<p class="p1"><span class="s1">========================= */</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function renderPool(){</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const pool =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>document.getElementById(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>"pool"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>pool.innerHTML = "";</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>sessions</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.filter(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>s =&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>s.status ===</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>"unscheduled"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.forEach(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>s =&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>pool.appendChild(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>sessionCard(s)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">/* =========================</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>AUTHORIZATION WARNINGS</span></p>
+<p class="p1"><span class="s1">========================= */</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function renderWarnings(){</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const box =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>document.getElementById(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>"authWarnings"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>box.innerHTML = "";</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>clients.forEach(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>client=&gt;{</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const scheduled =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>clientHours(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>client.id</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const auth =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>Number(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>client.authorized_hours</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>scheduled &gt; auth</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>){</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>box.innerHTML += `</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="warningText"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">⚠</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>${client.initials}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>is</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>${(scheduled-auth)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>.toFixed(2)}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>hrs over authorization</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>`;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">/* =========================</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">   </span>SEARCH</span></p>
+<p class="p1"><span class="s1">========================= */</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function renderSearch(){</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const text =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>document</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.getElementById(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>"searchBox"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.value</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.trim()</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.toLowerCase();</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const results =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>document.getElementById(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>"searchResults"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(!text){</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>results.innerHTML =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>"Search client initials.";</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const matches =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>clients.filter(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>c =&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>c.initials</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>.toLowerCase()</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>.includes(text)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>results.innerHTML =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>matches.map(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>c =&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>`&lt;div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>${c.initials}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;`</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>).join("");</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">&lt;/script&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;script&gt;</span></p>
+<p class="p1"><span class="s1">/* ADD / EDIT SESSION */</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function openSessionModal(id=null){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>populateDropdowns();</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const s = id</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>? sessions.find(x =&gt; x.id === id)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>: null;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>sessionId.value = s ? s.id : "";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>sessionClient.value = s ? s.client_id : clients[0]?.id;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>sessionStaff.value = s ? s.staff_id : "";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>sessionDay.value = s ? s.day : activeDay;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>sessionSlot.value = s ? s.slot : "AM";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>sessionStart.value = s ? s.start_time : "08:30";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>sessionEnd.value = s ? s.end_time : "11:30";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>sessionService.value = s ? s.service_type : "ABA Therapy";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>sessionStatus.value = s ? s.status : "scheduled";</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>sessionModal.style.display = "flex";</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function closeModal(){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>sessionModal.style.display = "none";</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">async function saveSession(){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const id = sessionId.value;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const payload = {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>client_id: sessionClient.value,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>staff_id: sessionStaff.value || null,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>day: sessionDay.value,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>slot: sessionSlot.value,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>start_time: sessionStart.value,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>end_time: sessionEnd.value,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>service_type: sessionService.value,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>status: sessionStatus.value,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>updated_at: new Date().toISOString()</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(!payload.staff_id){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>payload.status = "unscheduled";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(id){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>await supabaseClient</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.from("sessions")</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.update(payload)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.eq("id", id);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>} else {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>await supabaseClient</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.from("sessions")</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.insert(payload);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>closeModal();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>await loadData();</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">async function deleteSession(){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(!sessionId.value) return closeModal();</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(!confirm("Delete this appointment?")) return;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>await supabaseClient</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.from("sessions")</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.delete()</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.eq("id", sessionId.value);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>closeModal();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>await loadData();</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">/* DUPLICATE SESSION */</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">async function duplicateSession(){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(!sessionId.value){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>alert("Open an existing appointment first.");</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const original =</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>sessions.find(x =&gt; x.id === sessionId.value);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(!original) return;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const input = prompt(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>"Copy to which day(s)? Example: W,F or Wednesday,Friday"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(!input) return;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const map = {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>m:"Monday", mon:"Monday", monday:"Monday",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>t:"Tuesday", tue:"Tuesday", tuesday:"Tuesday",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>w:"Wednesday", wed:"Wednesday", wednesday:"Wednesday",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>th:"Thursday", thu:"Thursday", thursday:"Thursday",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>f:"Friday", fri:"Friday", friday:"Friday"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const rows = input</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.split(",")</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.map(x =&gt; x.trim().toLowerCase())</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.map(x =&gt; map[x])</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.filter(Boolean)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.map(day =&gt; ({</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>client_id: original.client_id,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>staff_id: original.staff_id,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>day,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>slot: original.slot,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>start_time: original.start_time,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>end_time: original.end_time,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>service_type: original.service_type,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>status: original.status,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>notes: original.notes || ""</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}));</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(rows.length){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>await supabaseClient</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.from("sessions")</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.insert(rows);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>closeModal();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>await loadData();</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">/* RENAME STAFF */</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">async function renameStaff(staffId){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const s = staff.find(x =&gt; x.id === staffId);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(!s) return;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const newName = prompt("Edit staff name:", s.name);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(!newName || !newName.trim()) return;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>await supabaseClient</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.from("staff")</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.update({ name: newName.trim() })</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.eq("id", staffId);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>await loadData();</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">/* REALTIME SYNC */</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">supabaseClient</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.channel("scheduler-live")</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.on(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>"postgres_changes",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>{ event:"*", schema:"public", table:"sessions" },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>() =&gt; loadData()</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.on(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>"postgres_changes",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>{ event:"*", schema:"public", table:"clients" },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>() =&gt; loadData()</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.on(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>"postgres_changes",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>{ event:"*", schema:"public", table:"staff" },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>() =&gt; loadData()</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>.subscribe();</span></p>
+<p class="p1"><span class="s1">&lt;/script&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+</body>
+</html>
