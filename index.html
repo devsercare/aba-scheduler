@@ -999,7 +999,12 @@ function closeModal(){
 
 async function saveSession(){
   const id = sessionId.value;
-
+  
+  if(!sessionClient.value){
+  alert("Please select a client before saving.");
+  return;
+}
+  
   const payload = {
     client_id: sessionClient.value || null,
     staff_id: sessionStaff.value || null,
