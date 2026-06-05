@@ -1001,7 +1001,7 @@ async function saveSession(){
   const id = sessionId.value;
 
   const payload = {
-    client_id: sessionClient.value,
+    client_id: sessionClient.value || null,
     staff_id: sessionStaff.value || null,
     day: sessionDay.value,
     slot: sessionSlot.value,
